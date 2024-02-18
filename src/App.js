@@ -1,4 +1,6 @@
+import React from 'react';
 import Expenses from './Components/Expenses/Expenses';
+import ExpenseForm from './Components/NewExpense/ExpenseForm'; // Import the ExpenseForm component
 
 function App() {
   const expenses = [
@@ -26,14 +28,14 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+
   return (
     <div>
       <h2>Let's get started!</h2>
+      <ExpenseForm /> {/* Render the ExpenseForm component */}
       <Expenses items={expenses} />
     </div>
   );
 }
-
-
 
 export default App;
