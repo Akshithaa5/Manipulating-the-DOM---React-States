@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Expenses from './Components/Expenses/Expenses';
-import ExpenseForm from './Components/NewExpense/ExpenseForm'; // Import the ExpenseForm component
+import NewExpense from './Components/NewExpense/NewExpense'; // Import the NewExpense component
 
 function App() {
-  const expenses = [
+  const [expenses, setExpenses] = useState([
     {
       id: 'e1',
       title: 'Toilet Paper',
@@ -19,7 +19,6 @@ function App() {
       amount: 294.67,
       date: new Date(2021, 2, 28),
     },
-    
     {
       id: 'e4',
       title: 'New Desk (Wooden)',
@@ -27,12 +26,17 @@ function App() {
       amount: 450,
       date: new Date(2021, 5, 12),
     },
-  ];
+  ]);
+
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => {
+      return [...prevExpenses, expense];
+    });
+  };
 
   return (
     <div>
-      <h2>Let's get started!</h2>
-      <ExpenseForm /> {/* Render the ExpenseForm component */}
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
