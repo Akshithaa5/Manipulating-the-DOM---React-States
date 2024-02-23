@@ -12,3 +12,7 @@
 .no-expenses {
   color: rgb(185, 21, 21); /* or red */
 }
+
+.single-expense-message {
+  color: red; /* Change color here */
+}
