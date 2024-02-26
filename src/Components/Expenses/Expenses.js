@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
-import ExpenseItems from './ExpenseItems';
+import ExpenseList from './ExpenseList';
 import Card from '../UI/Card';
+import ExpenseChart from './ExpenseChart';
 import ExpenseFilter from './ExpenseFilter';
 import './Expenses.css';
 
@@ -16,31 +16,6 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  let expensesContent = <p className="no-expenses">No expenses found.</p>;
-
-  if (filteredExpenses.length === 1) {
-    expensesContent = (
-      <div>
-        <ExpenseItems
-          key={filteredExpenses[0].id}
-          title={filteredExpenses[0].title}
-          amount={filteredExpenses[0].amount}
-          date={filteredExpenses[0].date}
-        />
-        <p className="single-expense-message">Only single expense here. Please add more...</p>
-      </div>
-    );
-  } else if (filteredExpenses.length > 1) {
-    expensesContent = filteredExpenses.map((expense) => (
-      <ExpenseItems
-        key={expense.id}
-        title={expense.title}
-        amount={expense.amount}
-        date={expense.date}
-      />
-    ));
-  }
-
   return (
     <div>
       <Card className='expenses'>
@@ -48,9 +23,14 @@ const Expenses = (props) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {expensesContent}
+        <ExpenseChart expenses={filteredExpenses} />
+        {filteredExpenses.length === 1 && (
+          <p className='single-expense-message'>Only single Expense here. Please add more...</p>
+        )}
+        <ExpenseList items={filteredExpenses} />
       </Card>
     </div>
   );
 };
+
 export default Expenses;

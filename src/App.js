@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Expenses from './Components/Expenses/Expenses';
-import NewExpense from './Components/NewExpense/NewExpense'; // Import the NewExpense component
+import NewExpense from './Components/NewExpense/NewExpense';
 
 const App = () => {
-  const expenses = [
+  const [expenses, setExpenses] = useState([
     {
       id: 'e1',
       title: 'Toilet Paper',
@@ -23,23 +23,20 @@ const App = () => {
       amount: 450,
       date: new Date(2021, 5, 12),
     },
-  ];
+  ]);
+
+  const [showExpenseForm, setShowExpenseForm] = useState(true);
 
   const addExpenseHandler = expense => {
-    console.log('In App.js');
-    console.log(expense);
+    setExpenses(prevExpenses => {
+      return [...prevExpenses, expense];
+    });
+    setShowExpenseForm(false); // Hide the ExpenseForm after adding an expense
   };
-
-  // return React.createElement(
-  //   'div',
-  //   {},
-  //   React.createElement('h2', {}, "Let's get started!"),
-  //   React.createElement(Expenses, { items: expenses })
-  // );
 
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
+      {showExpenseForm && <NewExpense onAddExpense={addExpenseHandler} />}
       <Expenses items={expenses} />
     </div>
   );
